@@ -1,25 +1,23 @@
 package com.investMingle.chat.config;
 
-import com.investMingle.chat.WebSocketHandler;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
-@EnableWebSocket
-public class webSocketConfiguration implements WebSocketConfigurer {
+@EnableWebSocketMessageBroker
+public class webSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry
-                .addHandler(signalingSocketHandler(), "/room")
+                .addEndpoint("/ws")
                 .setAllowedOrigins("*");
     }
 
-    @Bean
-    public WebSocketHandler signalingSocketHandler() {
-        return new WebSocketHandler();
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/sub");
+        registry.setApplicationDestinationPrefixes("/pub");
     }
 }

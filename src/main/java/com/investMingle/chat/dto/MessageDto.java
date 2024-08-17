@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 public class MessageDto {
     private String type;
     private String sender;
-    private String receiver;
+    private String channelId;
     private String data;
 
     public void setSender(String sender) {
