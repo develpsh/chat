@@ -1,8 +1,6 @@
 package com.investMingle.chat.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
-import org.json.simple.JSONObject;
 
 @Getter
 @Builder
